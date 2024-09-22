@@ -1,10 +1,10 @@
-# IDS706 - Mini Project 2 - Ailina Aniwan
+# IDS706 - Mini Project 3 - Ailina Aniwan
 
 ## Alcohol Consumption Data Analysis
 
 ### Project Overview
 
-This project analyzes global alcohol consumption using the **drinks.csv** dataset from [FiveThirtyEight](https://github.com/fivethirtyeight/data). It uses Python with **Pandas** for statistical analysis and **Matplotlib** for data visualization to explore the consumption of beer, spirits, and wine across different countries.
+This project analyzes global alcohol consumption using the **drinks.csv** dataset from [FiveThirtyEight](https://github.com/fivethirtyeight/data). It uses Python with **Polars** for statistical analysis and **Matplotlib** for data visualization to explore the consumption of beer, spirits, and wine across different countries.
 
 ### Data Source
 
@@ -15,17 +15,17 @@ The dataset is sourced from [FiveThirtyEight’s alcohol consumption dataset](ht
 - **wine_servings**: Average wine servings per capita.
 - **total_litres_of_pure_alcohol**: Total litres of pure alcohol consumed per capita.
 
-Here’s how I loaded the dataset using **Pandas** in the script:
+Here’s how I loaded the dataset using **Polars** in the script:
 ```Python
-import pandas as pd
+import polars as pl
 
 dataset = "https://raw.githubusercontent.com/fivethirtyeight/data/master/alcohol-consumption/drinks.csv"
 
 def load_dataset():
-    df = pd.read_csv(dataset)
+    df = pl.read_csv(dataset)
     return df
 ```
-The load_dataset() function uses pd.read_csv() to read the dataset from the provided URL and return a DataFrame for further analysis.
+The load_dataset() function uses pl.read_csv() to read the dataset from the provided URL and return a DataFrame for further analysis.
 
 ### Analysis and Calculations
 
@@ -58,23 +58,32 @@ Here is the code that was used to plot the grouped bar chart:
 import matplotlib.pyplot as plt
 
 def plot_summary_statistics(df):
-    columns = ['beer_servings', 'spirit_servings', 'wine_servings']
-    mean_values = df[columns].mean()
-    median_values = df[columns].median()
-    std_dev_values = df[columns].std()
+    columns = ["beer_servings", "spirit_servings", "wine_servings"]
+    means = df.select([pl.col(c).mean().alias(c + "_mean") for c in columns]).to_numpy()
+    medians = df.select(
+        [pl.col(c).median().alias(c + "_median") for c in columns]
+    ).to_numpy()
+    stds = df.select([pl.col(c).std().alias(c + "_std") for c in columns]).to_numpy()
 
     bar_width = 0.3
     bar_positions = range(len(columns))
 
-    plt.bar(bar_positions, mean_values, width=bar_width, label='Mean')
-    plt.bar([p + bar_width for p in bar_positions], median_values, width=bar_width, 
-            label='Median')
-    plt.bar([p + 2 * bar_width for p in bar_positions], std_dev_values, width=bar_width, 
-            label='Standard Deviation')
-
-    plt.title('Comparison of Alcohol Servings by Type')
-    plt.ylabel('Servings')
-    plt.xlabel('Alcohol Type')
+    plt.bar(bar_positions, means[0], width=bar_width, label="Mean")
+    plt.bar(
+        [p + bar_width for p in bar_positions],
+        medians[0],
+        width=bar_width,
+        label="Median",
+    )
+    plt.bar(
+        [p + 2 * bar_width for p in bar_positions],
+        stds[0],
+        width=bar_width,
+        label="Standard Deviation",
+    )
+    plt.title("Comparison of Alcohol Servings by Type")
+    plt.ylabel("Servings")
+    plt.xlabel("Alcohol Type")
     plt.xticks([p + bar_width for p in bar_positions], columns)
     plt.legend()
     plt.show()
@@ -95,7 +104,7 @@ A **test_main.py** file was created to test the calculation functions (`process_
 
 Here is the code in the **test_main.py**:
 ```python
-import pandas as pd
+import polars as pl
 from main import process_mean, process_median, process_std
 
 def test_statistics():
@@ -104,7 +113,7 @@ def test_statistics():
         'spirit_servings': [80, 90, 100],
         'wine_servings': [20, 30, 40]
     }
-    df = pd.DataFrame(data)
+    df = pl.DataFrame(data)
 
     print("Testing 'beer_servings' statistics...")
     expected_mean_beer = 60.00
