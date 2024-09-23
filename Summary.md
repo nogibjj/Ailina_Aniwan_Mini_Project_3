@@ -49,6 +49,27 @@ def process_std(df, col):
 ```
 For each column (beer_servings, spirit_servings, wine_servings), the functions process_mean(), process_median(), and process_std() calculate the mean, median, and standard deviation, respectively.
 
+Here are the summarized statistics for each category:
+
+- **Beer Servings**:
+  - Mean: 106.16
+  - Median: 76.00
+  - Standard Deviation: 101.14
+- **Spirit Servings**:
+  - Mean: 80.99
+  - Median: 56.00
+  - Standard Deviation: 88.28
+- **Wine Servings**:
+  - Mean: 49.45
+  - Median: 8.00
+  - Standard Deviation: 79.70
+- **Total Litres of Pure Alcohol**:
+  - Mean: 4.70
+  - Median: 4.20
+  - Standard Deviation: 3.77
+
+These results were calculated using Polars and represent the central tendency and dispersion measures for alcohol consumption metrics by beverage type across various countries.
+
 #### 2. Data Visualization
 
 **grouped bar chart** was created to compare the mean, median, and standard deviation for beer, spirits, and wine. This visualization helps identify the central tendencies and spread of alcohol consumption across different categories.
