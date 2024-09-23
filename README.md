@@ -18,7 +18,7 @@ The dataset is sourced from [FiveThirtyEight’s alcohol consumption dataset](ht
 
 ### Analysis and Calculations
 
-#### 1. Descriptive Statistics
+#### **1. Descriptive Statistics**
 - **Mean**: The average number of servings.
 - **Median**: The middle value in the data.
 - **Standard Deviation**: The variability in servings across countries.
@@ -46,7 +46,7 @@ Here are the summarized statistics for each category:
 
 These results were calculated using Polars and represent the central tendency and dispersion measures for alcohol consumption metrics by beverage type across various countries.
 
-#### 2. Data Visualization
+#### **2. Data Visualization**
 
 **grouped bar chart** was created to compare the mean, median, and standard deviation for beer, spirits, and wine. This visualization helps identify the central tendencies and spread of alcohol consumption across different categories.
 
