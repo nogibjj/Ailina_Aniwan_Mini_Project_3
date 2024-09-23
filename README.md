@@ -1,4 +1,4 @@
-[![CI](https://github.com/nogibjj/Ailina_Aniwan_Mini_Project_2/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Ailina_Aniwan_Mini_Project_2/actions/workflows/cicd.yml)
+[![CI](https://github.com/nogibjj/Ailina_Aniwan_Mini_Project_3/actions/workflows/cicd.yml/badge.svg)](https://github.com/nogibjj/Ailina_Aniwan_Mini_Project_3/actions/workflows/cicd.yml)
 # IDS706 - Mini Project 3 - Ailina Aniwan
 
 ## Alcohol Consumption Data Analysis
